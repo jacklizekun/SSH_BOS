@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>坤坤BOS系统基础档案设置</title>
+<title>基础档案设置</title>
 </head>
 <body>
-<h1>坤坤BOS系统基础档案设置</h1>
-<a href="mail to:beike88888888@163.com">测试</a>
+<h1>基础档案设置</h1>
+<a href="#">测试</a>
 </body>
 </html>

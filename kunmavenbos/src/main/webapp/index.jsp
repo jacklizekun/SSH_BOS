@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>坤坤中转站</title>
+<title>跳转到主页</title>
 </head>
 <body>
 <jsp:forward page="/page_common_index.action"></jsp:forward>

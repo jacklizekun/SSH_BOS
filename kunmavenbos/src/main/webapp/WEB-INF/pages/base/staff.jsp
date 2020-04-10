@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>坤坤BOS系统取派员</title>
+<title>Insert title here</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -28,6 +28,16 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	function doAdd(){
+		// form清空
+		$('#id').val('');
+		$('#id').removeAttr('readonly');
+		$('#name').val('');
+		$('#telephone').val('');
+		$('#station').val('');
+		// pda 勾选
+		$('#haspda').removeAttr("checked");
+		// 标准 select 回显
+		$('#standardId').combobox('setValue', '');  
 		//alert("增加...");
 		$('#addStaffWindow').window("open");
 	}
@@ -36,8 +46,15 @@
 		alert("查看...");
 	}
 	
+	// 作废操作 
 	function doDelete(){
-		alert("删除...");
+		// 先判断 用户是否选择
+		var array = $('#grid').datagrid('getSelections'); 
+		if(array.length == 0){
+			$.messager.alert('警告','删除前必须选择！','warning');
+		}else{
+			$('#delForm').submit();
+		}
 	}
 	
 	function doRestore(){
@@ -132,7 +149,7 @@
 			pageList: [30,50,100],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/staff.json",
+			url : "${pageContext.request.contextPath}/staff_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -148,18 +165,48 @@
 	        height: 400,
 	        resizable:false
 	    });
+	
 		
+		// 为保存按钮添加 点击事件
+		$('#save').click(function(){
+			// 进行form 校验
+			if($('#staffForm').form('validate')){
+				// 通过校验
+				$('#staffForm').submit();
+			}else{
+				// 校验失败 
+				$.messager.alert('警告','表单存在非法数据项，请重新输入','warning');
+			}
+		});
 	});
 
-	function doDblClickRow(){
-		alert("双击表格数据...");
+	function doDblClickRow(rowIndex, rowData){
+		// form回显
+		$('#id').val(rowData.id);
+		$('#id').attr('readonly','readonly');
+		$('#name').val(rowData.name);
+		$('#telephone').val(rowData.telephone);
+		$('#station').val(rowData.station);
+		// pda 勾选
+		if(rowData.haspda == "1"){
+			$('#haspda').attr("checked","checked");
+		}else{
+			$('#haspda').removeAttr("checked");
+		}
+		// 标准 select 回显
+		$('#standardId').combobox('setValue', rowData.standard.id);  
+		
+		// 弹出窗口
+		$('#addStaffWindow').window('open');
 	}
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<div region="center" border="false">
-    	<table id="grid"></table>
-	</div>
+	<form id="delForm" action="${pageContext.request.contextPath }/staff_delBatch.action" method="post">
+		<div region="center" border="false">
+	    	<table id="grid"></table>
+		</div>
+	</form>
 	<div class="easyui-window" title="对收派员进行添加或者修改" id="addStaffWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
@@ -168,7 +215,7 @@
 		</div>
 		
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form id="staffForm" action="${pageContext.request.contextPath }/staff_saveOrUpdate.action" method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">收派员信息</td>
@@ -176,30 +223,34 @@
 					<!-- TODO 这里完善收派员添加 table -->
 					<tr>
 						<td>取派员编号</td>
-						<td><input type="text" name="id" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="id" name="id" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>姓名</td>
-						<td><input type="text" name="name" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="name" name="name" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>手机</td>
-						<td><input type="text" name="telephone" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="telephone" name="telephone" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>单位</td>
-						<td><input type="text" name="station" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="station" name="station" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td colspan="2">
-						<input type="checkbox" name="haspda" value="1" />
+						<input type="checkbox" id="haspda" name="haspda" value="1" />
 						是否有PDA</td>
 					</tr>
 					<tr>
 						<td>取派标准</td>
 						<td>
-							<input class="easyui-combobox" name="standard.id"  
-    							data-options="valueField:'id',textField:'name',url:'json/standard.json'" />  
+<%--							<select id="standardList">--%>
+<%--							</select>--%>
+							
+							<!-- 目标model 是 Staff， 提供 setStandard 方法， 在Standard中提供 setId 的方法 -->
+							<input class="easyui-combobox"  id="standardId" name="standard.id" 
+							data-options="url:'${pageContext.request.contextPath}/standard_ajaxlist.action',valueField:'id',textField:'name',required:true" />
 						</td>
 					</tr>
 					</table>

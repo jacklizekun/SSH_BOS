@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>坤坤BOS系统主页</title>
+<title>坤坤物流BOS主界面</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -76,18 +76,43 @@
 		window.setTimeout(function(){
 			$.messager.show({
 				title:"消息提示",
-				msg:'欢迎登录，超级管理员！ <a href="javascript:void" onclick="top.showAbout();">联系管理员</a>',
+				msg:'欢迎登录，${user.username}！ <a href="javascript:void" onclick="top.showAbout();">联系管理员</a>',
 				timeout:5000
 			});
 		},3000);
-		
 		
 		$("#btnCancel").click(function(){
 			$('#editPwdWindow').window('close');
 		});
 		
 		$("#btnEp").click(function(){
-			alert("修改密码");
+			// 获得新密码和确认密码的输入内容 
+			var newPass = $("#txtNewPass").val(); // document.getElementById("txtNewPass").value; 
+			var rePass = $("#txtRePass").val();
+			
+			// 进行校验
+			// 新密码是否为空
+			if($.trim(newPass)==""){ // 也可以写为 jQuery.trim
+				// 新密码输入为空 
+				$.messager.alert('警告','新密码不能为空或者空白字符！','warning');
+				return ;
+			}
+			// 两次密码是否一致
+			if($.trim(newPass) != $.trim(rePass)){
+				$.messager.alert('警告','两次密码输入不一致！','warning');
+				return ;
+			}
+			
+			// 通过 Ajax 将新密码发送到服务器 
+			$.post("${pageContext.request.contextPath}/user_editpassword.action", {password: newPass}, function(data){
+				if(data.result == "success"){
+					$.messager.alert("信息", data.msg, "info");
+				}else{
+					$.messager.alert("信息", data.msg, "info");
+				}
+				// 窗口关闭 
+				$("#editPwdWindow").window('close');
+			});
 		});
 	});
 
@@ -116,7 +141,12 @@
 		}
 	}
 
-	 //更换主题
+	/*******顶部特效 *******/
+	/**
+	 * 更换EasyUI主题的方法
+	 * @param themeName
+	 * 主题名称
+	 */
 	changeTheme = function(themeName) {
 		var $easyuiTheme = $('#easyuiTheme');
 		var url = $easyuiTheme.attr('href');
@@ -133,10 +163,11 @@
 	};
 	// 退出登录
 	function logoutFun() {
-		$.messager
-		.confirm('系统提示','您确定要退出本次登录吗?',function(isConfirm) {
-			if (isConfirm) {
-				location.href = '${pageContext.request.contextPath }/login.jsp';
+		// 询问 用户是否确认退出
+		$.messager.confirm("确认窗口","你确定退出系统吗？", function(isConfirm){
+			if(isConfirm){
+				// 确认退出 
+				location.href = "${pageContext.request.contextPath}/invalidate.jsp";
 			}
 		});
 	}
@@ -144,9 +175,9 @@
 	function editPassword() {
 		$('#editPwdWindow').window('open');
 	}
-	
+	// 版权信息
 	function showAbout(){
-		$.messager.alert("坤坤BOS系统","欢迎使用");
+		$.messager.alert("坤坤BOS","坤坤");
 	}
 </script>
 </head>
@@ -159,7 +190,7 @@
 		</div>
 		<div id="sessionInfoDiv"
 			style="position: absolute;right: 5px;top:10px;">
-			[<strong>超级管理员</strong>]，欢迎你！您使用[<strong>192.168.1.100</strong>]IP登录！
+			[<strong>${user.username }</strong>]，欢迎你！您使用[<strong>${pageContext.request.remoteAddr }</strong>]IP登录！
 		</div>
 		<div style="position: absolute; right: 5px; bottom: 10px; ">
 			<a href="javascript:void(0);" class="easyui-menubutton"
@@ -209,7 +240,7 @@
 				<tr>
 					<td style="width: 300px;">
 						<div style="color: #999; font-size: 8pt;">
-							坤坤BOS系统 |<a href="mailto:beike88888888@163.com"> 联系坤坤</a>
+							坤坤物流 | Powered by <a href="#">itcast.cn</a>
 						</div>
 					</td>
 					<td style="width: *;" class="co1"><span id="online"

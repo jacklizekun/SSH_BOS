@@ -4,16 +4,108 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />
-	<constant name="struts.objectFactory" value="spring"></constant>
+	<!-- 修改 form 默认布局样式 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
 
-	<package name="basicstruts2" extends="struts-default">
+	<package name="needlogin" extends="json-default">
+		<!-- 注册拦截器  -->
+		<interceptors>
+			<interceptor name="login" class="web.interceptor.LoginInterceptor"></interceptor>
+			<!-- 定义新的拦截器栈  -->
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="login"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 设置默认拦截器栈 -->
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		
+		<!-- 配置全局结果集 -->
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+		
 		<action name="index">
 			<result>/index.jsp</result>
 		</action>
 		<!-- 需要进行权限控制的页面访问 -->
-		<!-- 利用通配符 将页面转向特定位置-->
 		<action name="page_*_*">
-			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
+			<result>/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+		
+		<!-- 用户管理 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<!-- 修改密码 -->
+			<result name="editpasswordSUCCESS" type="json">
+				<!-- 配置root参数，指定将值栈哪个数据返回  -->
+				<param name="root">map</param>
+			</result>
+		</action>
+		
+		<!-- 收派标准 -->
+		<action name="standard_*" class="standardAction" method="{1}">
+			<!-- 保存标准 -->
+			<result name="saveSUCCESS">/WEB-INF/pages/base/standard.jsp</result>
+			<!-- 分页查询标准数据 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<!-- 配置 属性includeProperties 指定哪些属性返回  -->
+				<param name="includeProperties">
+					<!-- 正则表达式 格式  -->
+					total, <!-- pageResponseBean的 total 属性返回  -->
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.minweight,
+					rows\[\d+\]\.maxweight,
+					rows\[\d+\]\.updatetime,
+					rows\[\d+\]\.user\.username,
+					rows\[\d+\]\.user\.station
+				</param>
+			</result>
+			<!-- 删除数据 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/standard.jsp</result>
+			<!-- 收派标准 ajax列表  -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">standards</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name
+				</param>
+			</result>
+	
+		</action>
+		
+		<!-- 取派员管理 -->
+		<action name="staff_*" class="staffAction" method="{1}">
+			<!-- 添加或修改 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<!-- 分页列表查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>			
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.telephone,
+					rows\[\d+\]\.station,
+					rows\[\d+\]\.haspda,
+					rows\[\d+\]\.deltag,
+					rows\[\d+\]\.standard\.id,
+					rows\[\d+\]\.standard\.name
+				</param>
+			</result>
+			<!-- 作废取派员 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 这个包 不需要登陆拦截  -->
+	<package name="nologin" extends="struts-default">
+		<!-- 登陆功能 -->
+		<action name="login" class="loginAction">
+			<result name="input">/login.jsp</result>
+			<result type="redirect">/index.jsp</result>
 		</action>
 	</package>
 

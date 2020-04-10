@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>坤坤BOS系统收派标准</title>
+<title>收排标准</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -29,6 +29,11 @@
 <script type="text/javascript">
 	function doAdd(){
 		//alert("增加...");
+		$('#name').val('');
+		$('#minweight').numberbox('setValue', null); 	
+		$('#maxweight').numberbox('setValue', null); 	
+		$('#id').val('') ;
+		
 		$('#addStandardWindow').window("open");
 	}
 	
@@ -37,7 +42,16 @@
 	}
 	
 	function doDelete(){
-		alert("删除...");
+		// 判断是否选择表格数据 
+		var array = $('#grid').datagrid('getSelections');
+		if(array.length == 0){
+			// 一行也没选
+			$.messager.alert('警告','删除数据要先选中！','warning');
+			return ;
+		}
+		
+		// 提交删除form 
+		$('#delForm').submit();
 	}
 	//工具栏
 	var toolbar = [ {
@@ -76,26 +90,38 @@
 		width : 120,
 		align : 'center'
 	}, {
-		field : 'operator.username',
+		field : 'user.username',
 		title : '操作人',
 		width : 120,
 		align : 'center',
-		formatter : function(data,row, index){
-			return row.operator.username;
+		formatter : function(value,rowData, rowIndex){ 
+			// value 表示匹配了当前属性的值
+			// rowData 代表整行数据 
+			// rowIndex 代表行号 
+			if(rowData.user!=null){
+				return rowData.user.username;
+			}
 		}
-		
 	}, {
 		field : 'updatetime',
 		title : '操作时间',
 		width : 160,
-		align : 'center'
+		align : 'center',
+		formatter : function(value ,rowData, rowIndex){
+			return value.replace("T"," ");
+		}
 	}, {
-		field : 'operator.station',
+		field : 'user.station',
 		title : '操作单位',
 		width : 200,
 		align : 'center',
-		formatter : function(data,row, index){
-			return row.operator.station;
+		formatter : function(value,rowData, rowIndex){ 
+			// value 表示匹配了当前属性的值
+			// rowData 代表整行数据 
+			// rowIndex 代表行号 
+			if(rowData.user!=null){
+				return rowData.user.station;
+			}
 		}
 	} ] ];
 	
@@ -110,10 +136,10 @@
 			border : false,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList: [2,3,5],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/standard.json",
+			url : "${pageContext.request.contextPath}/standard_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -132,41 +158,64 @@
 		
 	});
 	
-	function doDblClickRow(){
-		alert("双击表格数据...");
+	// 修改数据 
+	function doDblClickRow(rowIndex, rowData){ // rowIndex行号，rowData 双击行数据
+		// form回显
+		$('#name').val(rowData.name);
+		$('#minweight').numberbox('setValue', rowData.minweight); 	
+		$('#maxweight').numberbox('setValue', rowData.maxweight); 	
+		$('#id').val(rowData.id) ;
+	
+		// 弹出修改窗口
+		$('#addStandardWindow').window('open');
 	}
 	
+	// 点击保存按钮，提交标准form
+	function commitStandardForm(){
+		// 先判断form 是否通过校验，如果通过 ，提交表单 
+		if($('#standardForm').form('validate')){// 执行EasyUI 校验方法
+			// 通过校验 
+			$('#standardForm').submit();
+		}else{
+			// 没通过校验
+			$.messager.alert('警告','表单存在非法数据，请重新输入','warning');
+		}
+	}
 		
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-    <div region="center" border="false">
-    	<table id="grid"></table>
-	</div>
+    <form id="delForm" action="${pageContext.request.contextPath }/standard_delBatch.action" method="post">
+	    <div region="center" border="false">
+	    		<table id="grid"></table>
+		</div>
+    </form>
 	
 	<div class="easyui-window" title="添加收派标准" id="addStandardWindow" collapsible="false" minimizable="false" maximizable="false" style="top:100px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
-				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true" >保存</a>
+				<a id="save" icon="icon-save" href="javascript:commitStandardForm();" class="easyui-linkbutton" plain="true" >保存</a>
 			</div>
 		</div>
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form id="standardForm" action="${pageContext.request.contextPath }/standard_save.action" method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
-						<td colspan="2">收派标准信息</td>
+						<td colspan="2">收派标准信息
+							<input type="hidden" name="id" id="id" />
+						</td>
 					</tr>
 					<tr>
 						<td>标准名称</td>
-						<td><input type="text" class="easyui-validatebox" required="true" /></td>
+						<td><input id="name" name="name" type="text" class="easyui-validatebox" data-options="required:true" /></td>
 					</tr>
 					<tr>
 						<td>最小重量</td>
-						<td><input type="text" class="easyui-numberbox"  /></td>
+						<td><input id="minweight" name="minweight" type="text" class="easyui-numberbox"  /></td>
 					</tr>
 					<tr>
 						<td>最大重量</td>
-						<td><input type="text" class="easyui-numberbox" /></td>
+						<td><input id="maxweight" name="maxweight" type="text" class="easyui-numberbox" /></td>
 					</tr>
 					</table>
 			</form>
