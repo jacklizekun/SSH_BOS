@@ -27,6 +27,37 @@
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
+	/*
+		[
+			{name:'name',value:'张三'},
+			{name:'name',value:'李四'},
+			{name:'age',value:'20'}
+		]
+		转换过程 
+		serializeObj = {	
+			name : [张三,李四],
+			age : 20
+		}
+	*/
+
+	// 导入自定义 jquery 函数，将form 数据转换为 json
+	$.fn.serializeJson=function(){  
+	    var serializeObj={};  // 目标对象 
+	    var array=this.serializeArray();  // 先将form 转换为 数组 
+	    $(array).each(function(){  // 遍历数据的每个 元素
+	        if(serializeObj[this.name]){ // 判断json中 参数name是否存在 
+	            if($.isArray(serializeObj[this.name])){  // 判断 name对应属性值 是否为一个 数组
+	                serializeObj[this.name].push(this.value);   // 将当前值加入数组
+	            }else{ // 如果不是数组  
+	                serializeObj[this.name]=[serializeObj[this.name],this.value];  // 将原来属性值存储为数组 
+	            }  
+	        }else{  
+	            serializeObj[this.name]=this.value;   // 直接向对象添加一个新属性 
+	        }  
+	    });  
+	    return serializeObj;  
+	}; 
+
 	function doAdd(){
 		$('#addSubareaWindow').window("open");
 	}
@@ -44,7 +75,7 @@
 	}
 	
 	function doExport(){
-		alert("导出");
+		location.href="${pageContext.request.contextPath}/subarea_exportXls.action";
 	}
 	
 	function doImport(){
@@ -101,6 +132,9 @@
 		width : 120,
 		align : 'center',
 		formatter : function(data,row ,index){
+			if(row.region==null){
+				return "";
+			}
 			return row.region.province;
 		}
 	}, {
@@ -109,6 +143,9 @@
 		width : 120,
 		align : 'center',
 		formatter : function(data,row ,index){
+			if(row.region==null){
+				return "";
+			}
 			return row.region.city;
 		}
 	}, {
@@ -117,6 +154,9 @@
 		width : 120,
 		align : 'center',
 		formatter : function(data,row ,index){
+			if(row.region==null){
+				return "";
+			}
 			return row.region.district;
 		}
 	}, {
@@ -160,7 +200,7 @@
 			pageList: [30,50,100],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/subarea.json",
+			url : "${pageContext.request.contextPath}/subarea_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -187,8 +227,28 @@
 	        height: 400,
 	        resizable:false
 	    });
+		
+		// 执行条件查询
 		$("#btn").click(function(){
-			alert("执行查询...");
+			// 将form的数据转换为 json 
+			var params = $('#searchForm').serializeJson();
+			// 调用datagrid 执行查询，在查询是，缓存条件 
+			$('#grid').datagrid('load',params);// 重新加载datagrid指定url
+			
+			// 窗口关闭
+			$('#searchWindow').window('close');
+		});
+		
+		// 为添加分区 ，保存按钮添加点击 事件
+		$('#save').click(function(){
+			// 判断form 校验是否通过
+			if($('#subareaForm').form('validate')){
+				// 通过校验
+				$('#subareaForm').submit();
+			}else{
+				// 提示
+				$.messager.alert('警告','表单存在非法数据项，请重新输入！','warning');
+			}
 		});
 		
 	});
@@ -211,7 +271,7 @@
 		</div>
 		
 		<div style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form id="subareaForm" action="${pageContext.request.contextPath }/subarea_saveOrUpdate.action" method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">分区信息</td>
@@ -223,8 +283,10 @@
 					<tr>
 						<td>选择区域</td>
 						<td>
-							<input class="easyui-combobox" name="region.id"  
-    							data-options="valueField:'id',textField:'name',url:'json/standard.json'" />  
+							<!-- 提交区域的编号，封装 Subarea分区对象 region属性的 id中 -->
+							<input class="easyui-combobox" name="region.id"
+							data-options="valueField:'id', textField:'info', 
+							url:'${pageContext.request.contextPath }/region_ajaxlist.action', required:true"/>
 						</td>
 					</tr>
 					<tr>
@@ -260,30 +322,31 @@
 	<!-- 查询分区 -->
 	<div class="easyui-window" title="查询分区窗口" id="searchWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 		<div style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form id="searchForm">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">查询条件</td>
 					</tr>
 					<tr>
 						<td>省</td>
-						<td><input type="text" name="province" class="easyui-validatebox" required="true"/></td>
+						<!-- 将省份信息 封装 model的region属性的province属性 -->
+						<td><input type="text" name="region.province" /></td>
 					</tr>
 					<tr>
 						<td>市</td>
-						<td><input type="text" name="city" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="region.city"/></td>
 					</tr>
 					<tr>
 						<td>区（县）</td>
-						<td><input type="text" name="district" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="region.district" /></td>
 					</tr>
 					<tr>
 						<td>定区编码</td>
-						<td><input type="text" name="decidedzone.id" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="decidedZone.id" /></td>
 					</tr>
 					<tr>
 						<td>关键字</td>
-						<td><input type="text" name="addresskey" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" name="addresskey" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>

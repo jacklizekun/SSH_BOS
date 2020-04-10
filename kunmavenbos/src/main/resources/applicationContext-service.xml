@@ -16,5 +16,7 @@
 	<bean id="userService" class="service.impl.user.UserServiceImpl" />
 	<bean id="standardService" class="service.impl.bc.StandardServiceImpl" />
 	<bean id="staffService" class="service.impl.bc.StaffServiceImpl" />
+	<bean id="regionService" class="service.impl.bc.RegionServiceImpl" />
+	<bean id="subareaService" class="service.impl.bc.SubareaServiceImpl" />
 
 </beans>

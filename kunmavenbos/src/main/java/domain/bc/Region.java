@@ -114,12 +114,9 @@ public class Region  implements java.io.Serializable {
         this.subareas = subareas;
     }
    
-
-
-
-
-
-
-
+	public String getInfo() {
+		// 返回省市区信息
+		return province + "," + city + "," + district;
+	}
 
 }

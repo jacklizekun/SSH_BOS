@@ -98,6 +98,64 @@
 			<!-- 作废取派员 -->
 			<result name="delBatchSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
 		</action>
+		
+				<!-- 区域管理 -->
+		<action name="region_*" class="regionAction" method="{1}">
+			<!-- 批量导入 -->
+			<result name="importXlsSUCCESS" type="json">
+				<param name="root">map</param>
+			</result>
+			<!-- 分页查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+<!-- 				<param name="includeProperties"> -->
+<!-- 					total, -->
+<!-- 					rows\[\d+\]\.id, -->
+<!-- 					rows\[\d+\]\.province, -->
+<!-- 					rows\[\d+\]\.city, -->
+<!-- 					rows\[\d+\]\.district, -->
+<!-- 					rows\[\d+\]\.postcode, -->
+<!-- 					rows\[\d+\]\.shortcode, -->
+<!-- 					rows\[\d+\]\.citycode -->
+<!-- 				</param> -->
+			</result>
+			<!-- 添加分区时，需要区域 ajax列表 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">regions</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.info
+				</param>
+			</result>
+		</action>
+		
+		<!-- 分区管理 -->
+		<action name="subarea_*" class="subareaAction" method="{1}">
+			<!-- 添加分区 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/subarea.jsp</result>
+			<!-- 分页列表查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.addresskey,
+					rows\[\d+\]\.startnum,
+					rows\[\d+\]\.endnum,
+					rows\[\d+\]\.single,
+					rows\[\d+\]\.position,
+					rows\[\d+\]\.region\.province,
+					rows\[\d+\]\.region\.city,
+					rows\[\d+\]\.region\.district
+				</param>
+			</result>
+			<!-- 查询结果导出 -->
+			<result name="exportXlsSUCCESS" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename=${downloadFileName}</param>
+			</result>
+		</action>
+		
 	</package>
 	
 	<!-- 这个包 不需要登陆拦截  -->

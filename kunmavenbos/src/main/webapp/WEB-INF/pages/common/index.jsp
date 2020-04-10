@@ -240,7 +240,7 @@
 				<tr>
 					<td style="width: 300px;">
 						<div style="color: #999; font-size: 8pt;">
-							坤坤物流 | Powered by <a href="#">itcast.cn</a>
+							坤坤物流 | Powered by <a href="#">坤坤</a>
 						</div>
 					</td>
 					<td style="width: *;" class="co1"><span id="online"

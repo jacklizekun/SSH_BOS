@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import org.hibernate.criterion.DetachedCriteria;
 
+import service.bc.RegionService;
 import service.bc.StaffService;
 import service.bc.StandardService;
+import service.bc.SubareaService;
 import service.user.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,7 +28,10 @@ public abstract class BaseAction extends ActionSupport {
 	protected StandardService standardService;
 	@Resource(name = "staffService")
 	protected StaffService staffService;
-
+	@Resource(name = "regionService")
+	protected RegionService regionService;
+	@Resource(name = "subareaService")
+	protected SubareaService subareaService;
 	// 属性驱动，封装分页参数
 	private int page;
 	private int rows;
