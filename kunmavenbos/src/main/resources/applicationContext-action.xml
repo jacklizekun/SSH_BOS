@@ -20,4 +20,7 @@
 	<bean id="regionAction" class="web.action.bc.RegionAction" scope="prototype"/>
 	<bean id="subareaAction" class="web.action.bc.SubareaAction" scope="prototype"/>
 	<bean id="decidedZoneAction" class="web.action.bc.DecidedZoneAction" scope="prototype"/>
+	<bean id="noticeBillAction" class="web.action.qp.NoticeBillAction" scope="prototype"/>
+	<bean id="workOrderManageAction" class="web.action.qp.WorkOrderManageAction" scope="prototype" />
+
 </beans>

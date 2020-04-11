@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import crm.service.CustomerService;
 import dao.GenericDAO;
 import domain.bc.DecidedZone;
 import domain.bc.Region;
 import domain.bc.Staff;
 import domain.bc.Standard;
 import domain.bc.Subarea;
+import domain.qp.NoticeBill;
+import domain.qp.WorkBill;
+import domain.qp.WorkOrderManage;
 import domain.user.User;
 import page.PageRequestBean;
 import page.PageResponseBean;
@@ -34,7 +38,14 @@ public abstract class BaseService {
 	protected GenericDAO<Subarea> subareaDAO;
 	@Resource(name = "decidedZoneDAO")
 	protected GenericDAO<DecidedZone> decidedZoneDAO;
-	
+	@Resource(name = "customerService")
+	protected CustomerService customerService;
+	@Resource(name = "noticeBillDAO")
+	protected GenericDAO<NoticeBill> noticeBillDAO;
+	@Resource(name = "workBillDAO")
+	protected GenericDAO<WorkBill> workBillDAO;
+	@Resource(name = "workOrderManageDAO")
+	protected GenericDAO<WorkOrderManage> workOrderManageDAO;
 	// 分页通用代码
 		public <T> PageResponseBean pageQuery(PageRequestBean pageRequestBean, GenericDAO<T> dao) {
 			PageResponseBean pageResponseBean = new PageResponseBean();

@@ -36,4 +36,7 @@
     <query name="Subarea.findassociations">
     	<![CDATA[from Subarea where decidedZone is null]]>
     </query>
+    <query name="Subarea.findByAddresskey">
+    	<![CDATA[from Subarea where addresskey = ?]]>
+</query>
 </hibernate-mapping>

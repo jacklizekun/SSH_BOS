@@ -53,5 +53,8 @@ public class Customer implements Serializable {
 	public void setDecidedZoneId(String decidedZoneId) {
 		this.decidedZoneId = decidedZoneId;
 	}
-
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", telephone=" + telephone + ", address=" + address + ", decidedZoneId=" + decidedZoneId + "]";
+	}
 }

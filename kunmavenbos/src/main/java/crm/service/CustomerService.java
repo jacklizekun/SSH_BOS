@@ -19,6 +19,6 @@ public interface CustomerService {
 
 	// 将客户关联到 定区上
 	public void assignedCustomerToDecidedZone(String[] customerIds, String decidedZoneId);
-	
+	// 根据 客户地址 查询 定区编码
 	public String findDecidedZoneIdByCustomerAddress(String address);
 }

@@ -120,6 +120,16 @@
 			<artifactId>hessian</artifactId>
 			<version>4.0.33</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<version>3.4.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>ik</groupId>
+			<artifactId>ik</artifactId>
+			<version>1.0</version>	
+		</dependency>
 	</dependencies>
   <build>
     <plugins>

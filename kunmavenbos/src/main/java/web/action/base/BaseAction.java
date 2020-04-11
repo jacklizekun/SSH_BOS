@@ -9,10 +9,11 @@ import service.bc.RegionService;
 import service.bc.StaffService;
 import service.bc.StandardService;
 import service.bc.SubareaService;
+import service.qp.NoticeBillService;
 import service.user.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+import service.qp.WorkOrderManageService;
 import crm.service.CustomerService;
 import page.PageRequestBean;
 
@@ -38,6 +39,11 @@ public abstract class BaseAction extends ActionSupport {
 	protected DecidedZoneService decidedZoneService;
 	@Resource(name = "customerService")
 	protected CustomerService customerService;
+	@Resource(name = "noticeBillService")
+	protected NoticeBillService noticeBillService;
+	@Resource(name = "workOrderManageService")
+	protected WorkOrderManageService workOrderManageService;
+
 	// 属性驱动，封装分页参数
 	private int page;
 	private int rows;
@@ -54,10 +60,18 @@ public abstract class BaseAction extends ActionSupport {
 	public PageRequestBean initPageRequestBean(DetachedCriteria detachedCriteria) {
 		// 将分页查询参数 ，封装 PageRequestBean 对象中
 		PageRequestBean pageRequestBean = new PageRequestBean();
-		pageRequestBean.setPage(page);
-		pageRequestBean.setRows(rows);
+		pageRequestBean.setPage(getPage());
+		pageRequestBean.setRows(getRows());
 
 		pageRequestBean.setDetachedCriteria(detachedCriteria);
 		return pageRequestBean;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public int getRows() {
+		return rows;
 	}
 }

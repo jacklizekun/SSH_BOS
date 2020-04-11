@@ -19,4 +19,7 @@
 	<bean id="regionService" class="service.impl.bc.RegionServiceImpl" />
 	<bean id="subareaService" class="service.impl.bc.SubareaServiceImpl" />
 	<bean id="decidedZoneService" class="service.impl.bc.DecidedZoneServiceImpl"/>
+	<bean id="noticeBillService" class="service.impl.qp.NoticeBillServiceImpl"/>
+		<bean id="workOrderManageService" class="service.impl.qp.WorkOrderManageServiceImpl" />
+	
 </beans>

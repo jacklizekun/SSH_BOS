@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 
+import page.PageResponseBean;
+
 /**
  * 通用DAO接口设计
  * @author 李泽坤
@@ -32,4 +34,6 @@ public interface GenericDAO<T> {
 	public long findTotalCount(DetachedCriteria detachedCriteria);
 	//分页查询
 	public List<T> pageQuery(DetachedCriteria detachedCriteria, int firstResult, int maxResults);
+	//结合lucene索引库 进行分页查询
+	public PageResponseBean queryByLucene(String conditionName, String conditionValue, int page, int rows);
 }

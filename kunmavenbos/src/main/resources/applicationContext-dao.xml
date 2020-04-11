@@ -52,4 +52,23 @@
 		<!-- 注入SessionFactory -->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+		<bean id="noticeBillDAO" class="dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="domain.qp.NoticeBill"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="workBillDAO" class="dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="domain.qp.WorkBill"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+		<bean id="workOrderManageDAO" class="dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="domain.qp.WorkOrderManage"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 </beans>
