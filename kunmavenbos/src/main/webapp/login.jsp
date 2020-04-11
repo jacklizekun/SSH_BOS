@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
+    pageEncoding="UTF-8"%>   
 <%@taglib uri="/struts-tags" prefix="s"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -45,7 +45,7 @@ input[type=password] {
 	<div
 		style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: -280px;">
 		<img src="${pageContext.request.contextPath }/images/logo.png" style="border-width: 0; margin-left: 0;" />
-		<span style="float: right; margin-top: 35px; color: #488ED5;">新BOS系统以宅急送开发的ERP系统为基础，致力于便捷、安全、稳定等方面的客户体验</span>
+		<span style="float: right; margin-top: 35px; color: #488ED5;"></span>
 	</div>
 	<div class="main-inner" id="mainCnt"
 		style="width: 900px; height: 440px; overflow: hidden; position: absolute; left: 50%; top: 50%; margin-left: -450px; margin-top: -220px; background-image: url('${pageContext.request.contextPath }/images/bg_login.jpg')">
@@ -90,10 +90,10 @@ input[type=password] {
 	</div>
 	<div
 		style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: 220px;">
-		<span style="color: #488ED5;">Powered By www.itcast.cn</span><span
+		<span style="color: #488ED5;"></span><span
 			style="color: #488ED5;margin-left:10px;">推荐浏览器（右键链接-目标另存为）：<a
 			href="http://download.firefox.com.cn/releases/full/23.0/zh-CN/Firefox-full-latest.exe">Firefox</a>
-		</span><span style="float: right; color: #488ED5;">宅急送BOS系统</span>
+		</span><span style="float: right; color: #488ED5;"></span>
 	</div>
 </body>
 </html>

@@ -51,10 +51,10 @@
 							</s:iterator>
 						</td>
 						<td> 
-							<s:a action="%{formResourceName}" cssClass="easyui-linkbutton" >
+							<!-- formResourceName 和 id 都是从struts2 值栈获得   -->
+							<a href="${pageContext.request.contextPath }/${formResourceName}?taskId=${id}" class="easyui-linkbutton">
 								办理任务
-								<s:param name="taskId" value="id"></s:param>
-							</s:a>
+							</a>
 						</td>
 					</tr>
 				</s:iterator>

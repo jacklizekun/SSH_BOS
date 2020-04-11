@@ -13,13 +13,17 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<!-- 配置Service -->
-	<bean id="userService" class="service.impl.user.UserServiceImpl" />
-	<bean id="standardService" class="service.impl.bc.StandardServiceImpl" />
-	<bean id="staffService" class="service.impl.bc.StaffServiceImpl" />
-	<bean id="regionService" class="service.impl.bc.RegionServiceImpl" />
-	<bean id="subareaService" class="service.impl.bc.SubareaServiceImpl" />
-	<bean id="decidedZoneService" class="service.impl.bc.DecidedZoneServiceImpl"/>
-	<bean id="noticeBillService" class="service.impl.qp.NoticeBillServiceImpl"/>
-		<bean id="workOrderManageService" class="service.impl.qp.WorkOrderManageServiceImpl" />
+	<bean id="userService" class="bos.service.impl.user.UserServiceImpl" />
+	<bean id="standardService" class="bos.service.impl.bc.StandardServiceImpl" />
+	<bean id="staffService" class="bos.service.impl.bc.StaffServiceImpl" />
+	<bean id="regionService" class="bos.service.impl.bc.RegionServiceImpl" />
+	<bean id="subareaService" class="bos.service.impl.bc.SubareaServiceImpl" />
+	<bean id="decidedZoneService" class="bos.service.impl.bc.DecidedZoneServiceImpl"/>
 	
+	<bean id="noticeBillService" class="bos.service.impl.qp.NoticeBillServiceImpl"/>
+	<bean id="workOrderManageService" class="bos.service.impl.qp.WorkOrderManageServiceImpl" />
+	
+	<bean id="functionService" class="bos.service.impl.auth.FunctionServiceImpl" />
+	<bean id="roleService" class="bos.service.impl.auth.RoleServiceImpl"/>
+	<bean id="bosTaskService" class="bos.service.impl.workflow.BosTaskServiceImpl" />
 </beans>

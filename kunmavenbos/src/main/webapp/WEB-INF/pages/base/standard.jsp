@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib  uri="http://www.itcast.cn/tag" prefix="itcast"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,6 +27,9 @@
 <script
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath }/js/easyui/outOfBounds.js"
+	type="text/javascript"></script>	
 <script type="text/javascript">
 	function doAdd(){
 		//alert("增加...");
@@ -59,12 +63,16 @@
 		text : '查询',
 		iconCls : 'icon-search',
 		handler : doView
-	}, {
+	}, 
+	<itcast:privilege value="添加收派标准">
+	{
 		id : 'button-add',
 		text : '增加',
 		iconCls : 'icon-add',
 		handler : doAdd
-	}, {
+	}, 
+	</itcast:privilege>
+	{
 		id : 'button-delete',
 		text : '删除',
 		iconCls : 'icon-cancel',

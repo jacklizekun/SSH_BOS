@@ -15,59 +15,112 @@
 	
 	<!-- 配置DAO  -->
 	<!-- 为每个表 配置一个DAO -->
-	<bean id="userDAO" class="dao.impl.GenericDAOImpl">
+	<bean id="userDAO" class="bos.dao.impl.GenericDAOImpl">
 		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.user.User"></constructor-arg>
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.user.User"></constructor-arg>
 		<!-- 注入SessionFactory -->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	<bean id="standardDAO" class="dao.impl.GenericDAOImpl">
+	<bean id="standardDAO" class="bos.dao.impl.GenericDAOImpl">
 		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.bc.Standard"></constructor-arg>
-		<!-- 注入SessionFactory -->
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="staffDAO" class="dao.impl.GenericDAOImpl">
-		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.bc.Staff"></constructor-arg>
-		<!-- 注入SessionFactory -->
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-		<bean id="regionDAO" class="dao.impl.GenericDAOImpl">
-		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.bc.Region"></constructor-arg>
-		<!-- 注入SessionFactory -->
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-		<bean id="subareaDAO" class="dao.impl.GenericDAOImpl">
-		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.bc.Subarea"></constructor-arg>
-		<!-- 注入SessionFactory -->
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="decidedZoneDAO" class="dao.impl.GenericDAOImpl">
-		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.bc.DecidedZone"></constructor-arg>
-		<!-- 注入SessionFactory -->
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-		<bean id="noticeBillDAO" class="dao.impl.GenericDAOImpl">
-		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.qp.NoticeBill"></constructor-arg>
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.bc.Standard"></constructor-arg>
 		<!-- 注入SessionFactory -->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	<bean id="workBillDAO" class="dao.impl.GenericDAOImpl">
+	<bean id="staffDAO" class="bos.dao.impl.GenericDAOImpl">
 		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.qp.WorkBill"></constructor-arg>
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.bc.Staff"></constructor-arg>
 		<!-- 注入SessionFactory -->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-		<bean id="workOrderManageDAO" class="dao.impl.GenericDAOImpl">
+	
+	<bean id="regionDAO" class="bos.dao.impl.GenericDAOImpl">
 		<!-- 构造器注入 ，传入 实体类 完整类名  -->
-		<constructor-arg index="0" type="java.lang.String" value="domain.qp.WorkOrderManage"></constructor-arg>
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.bc.Region"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="subareaDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.bc.Subarea"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="decidedZoneDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.bc.DecidedZone"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="noticeBillDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.qp.NoticeBill"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="workBillDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.qp.WorkBill"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="workOrderManageDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.qp.WorkOrderManage"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="functionDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.auth.Function"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="roleDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.auth.Role"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="zhongZhuanInfoDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.zm.ZhongZhuanInfo"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="transferInfoDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.zm.TransferInfo"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="inStoreDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.zm.InStore"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="outStoreDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.zm.OutStore"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="receiveGoodsInfoDAO" class="bos.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名  -->
+		<constructor-arg index="0" type="java.lang.String" value="bos.domain.zm.ReceiveGoodsInfo"></constructor-arg>
 		<!-- 注入SessionFactory -->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>

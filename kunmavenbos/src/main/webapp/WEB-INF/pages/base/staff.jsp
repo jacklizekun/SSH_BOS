@@ -58,7 +58,15 @@
 	}
 	
 	function doRestore(){
-		alert("将取派员还原...");
+		// 先判断 用户是否选择
+		var array = $('#grid').datagrid('getSelections'); 
+		if(array.length == 0){
+			$.messager.alert('警告','还原前必须选择！','warning');
+		}else{
+			// 修改原来form 的默认Action
+			$('#delForm').attr("action","${pageContext.request.contextPath}/staff_doRestore.action")
+			$('#delForm').submit();
+		}
 	}
 	//工具栏
 	var toolbar = [ {
@@ -165,7 +173,6 @@
 	        height: 400,
 	        resizable:false
 	    });
-	
 		
 		// 为保存按钮添加 点击事件
 		$('#save').click(function(){

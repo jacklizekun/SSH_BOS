@@ -13,14 +13,18 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<!-- 配置Action -->
-	<bean id="loginAction" class="web.action.user.LoginAction" scope="prototype"/>
-	<bean id="userAction" class="web.action.user.UserAction" scope="prototype" />
-	<bean id="standardAction" class="web.action.bc.StandardAction" scope="prototype"/>
-	<bean id="staffAction" class="web.action.bc.StaffAction" scope="prototype"/>
-	<bean id="regionAction" class="web.action.bc.RegionAction" scope="prototype"/>
-	<bean id="subareaAction" class="web.action.bc.SubareaAction" scope="prototype"/>
-	<bean id="decidedZoneAction" class="web.action.bc.DecidedZoneAction" scope="prototype"/>
-	<bean id="noticeBillAction" class="web.action.qp.NoticeBillAction" scope="prototype"/>
-	<bean id="workOrderManageAction" class="web.action.qp.WorkOrderManageAction" scope="prototype" />
-
+	<bean id="loginAction" class="bos.web.action.user.LoginAction" scope="prototype"/>
+	<bean id="userAction" class="bos.web.action.user.UserAction" scope="prototype" />
+	<bean id="standardAction" class="bos.web.action.bc.StandardAction" scope="prototype"/>
+	<bean id="staffAction" class="bos.web.action.bc.StaffAction" scope="prototype"/>
+	<bean id="regionAction" class="bos.web.action.bc.RegionAction" scope="prototype"/>
+	<bean id="subareaAction" class="bos.web.action.bc.SubareaAction" scope="prototype"/>
+	<bean id="decidedZoneAction" class="bos.web.action.bc.DecidedZoneAction" scope="prototype"/>
+	<bean id="noticeBillAction" class="bos.web.action.qp.NoticeBillAction" scope="prototype"/>
+	<bean id="workOrderManageAction" class="bos.web.action.qp.WorkOrderManageAction" scope="prototype" />
+	<bean id="functionAction" class="bos.web.action.auth.FunctionAction" scope="prototype" />
+	<bean id="roleAction" class="bos.web.action.auth.RoleAction" scope="prototype"/>
+	<bean id="processDefinitionAction" class="bos.web.action.workflow.ProcessDefinitionAction" scope="prototype" />
+	<bean id="taskAction" class="bos.web.action.workflow.TaskAction" scope="prototype" />
+	<bean id="processInstanceAction" class="bos.web.action.workflow.ProcessInstanceAction" scope="prototype"/>
 </beans>

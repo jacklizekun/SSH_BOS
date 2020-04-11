@@ -42,17 +42,16 @@
 			<tbody>
 				<s:iterator value="#tasks" var="task">
 					<tr>
-						<td> <s:property value="id"/> </td>
-						<td> <s:property value="name"/></td>
+						<td><s:property value="id"/> </td>
+						<td><s:property value="name"/></td>
 						<td>
-							<!-- variables 是map 遍历获得每个entry -->
+							<!-- task.getVariables 返回 map -->
 							<s:iterator value="variables" var="entry">
-								<s:property value="key"/> ：<s:property value="value"/>
+								<s:property value="key"/>=<s:property value="value"/><br/>
 							</s:iterator>
 						</td>
-						<td> 
-							<s:a action="task_takeTask" cssClass="easyui-linkbutton" >
-								拾取任务
+						<td>
+							<s:a action="task_takeTask" namespace="/" cssClass="easyui-linkbutton">拾取
 								<s:param name="taskId" value="id"></s:param>
 							</s:a>
 						</td>

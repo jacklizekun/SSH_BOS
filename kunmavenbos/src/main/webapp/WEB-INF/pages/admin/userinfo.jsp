@@ -30,7 +30,12 @@
 	$(function(){
 		$("body").css({visibility:"visible"});
 		$('#save').click(function(){
-			$('#form').submit();
+			// 先校验form
+			if($('#userForm').form('validate')){
+				$('#userForm').submit();
+			}else{
+				$.messager.alert('警告','表单存在非法数据项','warning');
+			}
 		});
 	});
 </script>	
@@ -42,11 +47,11 @@
 		</div>
 	</div>
     <div region="center" style="overflow:auto;padding:5px;" border="false">
-       <form id="form" method="post" >
+       <form id="userForm" action="${pageContext.request.contextPath }/user_save.action" method="post" >
            <table class="table-edit"  width="95%" align="center">
            		<tr class="title"><td colspan="4">基本信息</td></tr>
 	           	<tr><td>用户名:</td><td><input type="text" name="username" id="username" class="easyui-validatebox" required="true" /></td>
-					<td>口令:</td><td><input type="password" name="password" id="password" class="easyui-validatebox" required="true" validType="minLength[5]" /></td></tr>
+					<td>口令:</td><td><input type="password" name="password" id="password" class="easyui-validatebox" required="true" validType="length[3,12]" /></td></tr>
 				<tr class="title"><td colspan="4">其他信息</td></tr>
 	           	<tr><td>工资:</td><td><input type="text" name="salary" id="salary" class="easyui-numberbox" /></td>
 					<td>生日:</td><td><input type="text" name="birthday" id="birthday" class="easyui-datebox" /></td></tr>
@@ -71,6 +76,13 @@
 					<td>联系电话</td>
 					<td colspan="3">
 						<input type="text" name="telephone" id="telephone" class="easyui-validatebox" required="true" />
+					</td>
+				</tr>
+				<tr>
+					<td>为用户授予角色</td>
+					<td colspan="3">
+						<input name="role.id" class="easyui-combobox" 
+							data-options="valueField:'id',textField:'name',url:'${pageContext.request.contextPath }/role_list.action',editable:false" />
 					</td>
 				</tr>
 	           	<tr><td>备注:</td><td colspan="3"><textarea style="width:80%"></textarea></td></tr>

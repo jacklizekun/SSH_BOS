@@ -26,10 +26,8 @@
 <script
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
-	<!-- 导入一键上传 js -->
-<script type="text/javascript" 
-src="${pageContext.request.contextPath }/js/ocupload/jquery.ocupload-1.1.2.js"></script>
-
+<!-- 导入一键上传 js -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/ocupload/jquery.ocupload-1.1.2.js"></script>
 <script type="text/javascript">
 	function doAdd(){
 		$('#addRegionWindow').window("open");

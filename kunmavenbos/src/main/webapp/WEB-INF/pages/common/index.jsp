@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>坤坤物流BOS主界面</title>
+<title>坤坤物流BOS系统</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -36,7 +36,8 @@
 					title : "t" // 鼠标在停留在菜单上提示
 				},
 				simpleData : { // 简单数据 
-					enable : true
+					enable : true,
+					pIdKey: "parentId",
 				}
 			},
 			callback : {
@@ -46,7 +47,7 @@
 		
 		// 基本功能菜单加载
 		$.ajax({
-			url : '${pageContext.request.contextPath}/json/menu.json',
+			url : '${pageContext.request.contextPath}/function_menu.action',
 			type : 'POST',
 			dataType : 'text',
 			success : function(data) {
@@ -58,6 +59,20 @@
 			}
 		});
 		
+		var setting2 = {
+				data : {
+					key : {
+						title : "t" // 鼠标在停留在菜单上提示
+					},
+					simpleData : { // 简单数据 
+						enable : true
+					}
+				},
+				callback : {
+					onClick : onClick
+				}
+		};
+		
 		// 系统管理菜单加载
 		$.ajax({
 			url : '${pageContext.request.contextPath}/json/admin.json',
@@ -65,7 +80,7 @@
 			dataType : 'text',
 			success : function(data) {
 				var zNodes = eval("(" + data + ")");
-				$.fn.zTree.init($("#adminMenu"), setting, zNodes);
+				$.fn.zTree.init($("#adminMenu"), setting2, zNodes);
 			},
 			error : function(msg) {
 				alert('菜单加载异常!');
@@ -73,6 +88,7 @@
 		});
 		
 		// 页面加载后 右下角 弹出窗口
+		/**************/
 		window.setTimeout(function(){
 			$.messager.show({
 				title:"消息提示",
@@ -80,6 +96,7 @@
 				timeout:5000
 			});
 		},3000);
+		/*************/
 		
 		$("#btnCancel").click(function(){
 			$('#editPwdWindow').window('close');
@@ -177,7 +194,7 @@
 	}
 	// 版权信息
 	function showAbout(){
-		$.messager.alert("坤坤BOS","坤坤");
+		$.messager.alert("坤坤物流","欢迎联系");
 	}
 </script>
 </head>
@@ -240,7 +257,7 @@
 				<tr>
 					<td style="width: 300px;">
 						<div style="color: #999; font-size: 8pt;">
-							坤坤物流 | Powered by <a href="#">坤坤</a>
+							坤坤 | Powered by <a href="#">坤</a>
 						</div>
 					</td>
 					<td style="width: *;" class="co1"><span id="online"

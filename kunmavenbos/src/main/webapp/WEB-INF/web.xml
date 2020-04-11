@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <display-name>坤坤物流BOS系统</display-name>
+  <display-name>坤坤物流BOS管理系统</display-name>
   <!-- spring配置文件位置 -->
   <context-param>
   	<param-name>contextConfigLocation</param-name>
@@ -31,10 +31,14 @@
   </filter>
   <filter-mapping>
   	<filter-name>struts2</filter-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>*.action</url-pattern>
   	<dispatcher>REQUEST</dispatcher>
   	<dispatcher>FORWARD</dispatcher>
   </filter-mapping>
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/404.jsp</location>
+  </error-page>
   <!-- 欢迎页面 -->
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

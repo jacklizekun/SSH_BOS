@@ -1,10 +1,12 @@
 package crm.domain;
 
 import java.io.Serializable;
+
 /**
- * 客户信息实体类
+ * 客户信息
+ * 
  * @author 李泽坤
- *
+ * 
  */
 public class Customer implements Serializable {
 	private String id;
@@ -53,8 +55,10 @@ public class Customer implements Serializable {
 	public void setDecidedZoneId(String decidedZoneId) {
 		this.decidedZoneId = decidedZoneId;
 	}
+
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", telephone=" + telephone + ", address=" + address + ", decidedZoneId=" + decidedZoneId + "]";
 	}
+
 }

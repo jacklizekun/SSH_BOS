@@ -37,10 +37,28 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- 索引库位置 -->
+				<prop key="hibernate.search.default.indexBase">d:/index</prop>
+				<!-- 开启二级缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<!-- 配置二级缓存实现（提供商） -->
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- 开启hibernate 二级缓存性能监控  -->
+				<prop key="hibernate.generate_statistics">true</prop>
 			</props>
 		</property>
 		<!-- 映射hbm -->
 		<property name="mappingDirectoryLocations" value="classpath:domain"></property>
+		<!-- 映射JBPM的 hbm -->
+		<property name="mappingResources">
+			<list>
+				<value>jbpm.repository.hbm.xml</value>
+				<value>jbpm.execution.hbm.xml</value>
+				<value>jbpm.history.hbm.xml</value>
+				<value>jbpm.task.hbm.xml</value>
+				<value>jbpm.identity.hbm.xml</value>
+			</list>
+		</property>
 	</bean>
 	
 	<!-- 配置事务  -->
@@ -68,7 +86,7 @@
 	
 	<!-- aop切面 -->
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* service.impl..*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* bos.service.impl..*(..))"/>
 	</aop:config>
 	
 </beans>
