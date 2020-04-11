@@ -18,5 +18,5 @@
 	<bean id="staffService" class="service.impl.bc.StaffServiceImpl" />
 	<bean id="regionService" class="service.impl.bc.RegionServiceImpl" />
 	<bean id="subareaService" class="service.impl.bc.SubareaServiceImpl" />
-
+	<bean id="decidedZoneService" class="service.impl.bc.DecidedZoneServiceImpl"/>
 </beans>

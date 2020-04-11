@@ -32,4 +32,8 @@
             <column name="position" />
         </property>
     </class>
+    <!-- 命名查询 -->
+    <query name="Subarea.findassociations">
+    	<![CDATA[from Subarea where decidedZone is null]]>
+    </query>
 </hibernate-mapping>

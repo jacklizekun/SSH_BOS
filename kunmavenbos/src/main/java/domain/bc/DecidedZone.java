@@ -13,10 +13,13 @@ public class DecidedZone  implements java.io.Serializable {
 
 
     // Fields    
-
+	//定区id，默认assigned委派
      private String id;
+     //取派员
      private Staff staff;
+     //名称
      private String name;
+     //分区
      private Set subareas = new HashSet(0);
 
 

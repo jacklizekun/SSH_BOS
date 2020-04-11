@@ -1,5 +1,7 @@
 package service.impl.bc;
 
+import java.util.List;
+
 import domain.bc.Staff;
 import page.PageRequestBean;
 import page.PageResponseBean;
@@ -26,5 +28,9 @@ public class StaffServiceImpl extends BaseService implements StaffService {
 			staff.setDeltag("1");
 		}
 	}
-
+	@Override
+	public List<Staff> findAllNoDeleteStaffs() {
+		// 查询条件 deltag = 0
+		return staffDAO.findByNamedQuery("Staff.findNoDelete");
+	}
 }

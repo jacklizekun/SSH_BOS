@@ -140,4 +140,15 @@ public class SubareaAction extends BaseAction implements ModelDriven<Subarea> {
 		// 再通过字节数组输入流读取数据
 		return new ByteArrayInputStream(data);
 	}
+
+	// 业务方法 --- 查询所有未关联定区的分区列表
+	public String findnoassociations() {
+		// 调用业务层查询
+		System.out.println("SubareaAction");
+		List<Subarea> subareas = subareaService.findnoassociations();
+		// 将结果转换json
+		ActionContext.getContext().put("subareas", subareas);
+
+		return "findnoassciactionsSUCCESS";
+	}
 }

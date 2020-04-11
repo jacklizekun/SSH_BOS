@@ -1,5 +1,7 @@
 package service.impl.bc;
 
+import java.util.List;
+
 import domain.bc.Subarea;
 import page.PageRequestBean;
 import page.PageResponseBean;
@@ -16,6 +18,11 @@ public class SubareaServiceImpl extends BaseService implements SubareaService {
 	@Override
 	public PageResponseBean pageQuery(PageRequestBean pageRequestBean) {
 		return pageQuery(pageRequestBean, subareaDAO);
+	}
+	@Override
+	public List<Subarea> findnoassociations() {
+		// 分区表中 定区外键 为null
+		return subareaDAO.findByNamedQuery("Subarea.findassociations");
 	}
 
 }

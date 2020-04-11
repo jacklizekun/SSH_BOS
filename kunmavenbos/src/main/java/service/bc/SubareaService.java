@@ -1,5 +1,7 @@
 package service.bc;
 
+import java.util.List;
+
 import domain.bc.Subarea;
 import page.PageQuery;
 /**
@@ -10,4 +12,5 @@ import page.PageQuery;
 public interface SubareaService extends PageQuery {
 	//增加或修改分区
 	public void saveOrUpdate(Subarea subarea);
+	public List<Subarea> findnoassociations();
 }

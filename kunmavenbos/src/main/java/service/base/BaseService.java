@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import dao.GenericDAO;
+import domain.bc.DecidedZone;
 import domain.bc.Region;
 import domain.bc.Staff;
 import domain.bc.Standard;
@@ -31,6 +32,8 @@ public abstract class BaseService {
 	protected GenericDAO<Region> regionDAO;
 	@Resource(name = "subareaDAO")
 	protected GenericDAO<Subarea> subareaDAO;
+	@Resource(name = "decidedZoneDAO")
+	protected GenericDAO<DecidedZone> decidedZoneDAO;
 	
 	// 分页通用代码
 		public <T> PageResponseBean pageQuery(PageRequestBean pageRequestBean, GenericDAO<T> dao) {

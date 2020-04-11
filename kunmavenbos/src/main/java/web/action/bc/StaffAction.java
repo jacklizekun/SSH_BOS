@@ -1,5 +1,7 @@
 package web.action.bc;
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 
 import domain.bc.Staff;
@@ -59,5 +61,14 @@ public class StaffAction extends BaseAction implements ModelDriven<Staff> {
 
 		return "delBatchSUCCESS";
 	}
+	// 业务方法 --- 查询取派员 json列表
+		public String ajaxlist() {
+			// 调用业务层 ，查询未作废取派员
+			List<Staff> staffs = staffService.findAllNoDeleteStaffs();
 
+			// 转换为json
+			ActionContext.getContext().put("staffs", staffs);
+
+			return "ajaxlistSUCCESS";
+		}
 }

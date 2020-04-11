@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.criterion.DetachedCriteria;
 
+import service.bc.DecidedZoneService;
 import service.bc.RegionService;
 import service.bc.StaffService;
 import service.bc.StandardService;
@@ -12,6 +13,7 @@ import service.user.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import crm.service.CustomerService;
 import page.PageRequestBean;
 
 /**
@@ -32,6 +34,10 @@ public abstract class BaseAction extends ActionSupport {
 	protected RegionService regionService;
 	@Resource(name = "subareaService")
 	protected SubareaService subareaService;
+	@Resource(name = "decidedZoneService")
+	protected DecidedZoneService decidedZoneService;
+	@Resource(name = "customerService")
+	protected CustomerService customerService;
 	// 属性驱动，封装分页参数
 	private int page;
 	private int rows;

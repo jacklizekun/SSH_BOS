@@ -35,4 +35,7 @@
             <one-to-many class="domain.bc.DecidedZone" />
         </set>
     </class>
+     <query name="Staff.findNoDelete">
+    	<![CDATA[from Staff where deltag = '0']]>
+    </query>
 </hibernate-mapping>

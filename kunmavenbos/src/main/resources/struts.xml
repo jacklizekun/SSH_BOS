@@ -43,6 +43,7 @@
 			</result>
 		</action>
 		
+			
 		<!-- 收派标准 -->
 		<action name="standard_*" class="standardAction" method="{1}">
 			<!-- 保存标准 -->
@@ -73,7 +74,6 @@
 					\[\d+\]\.name
 				</param>
 			</result>
-	
 		</action>
 		
 		<!-- 取派员管理 -->
@@ -97,9 +97,16 @@
 			</result>
 			<!-- 作废取派员 -->
 			<result name="delBatchSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<!-- json列表，添加定区时使用 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">staffs</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name
+				</param>
+			</result>
 		</action>
-		
-				<!-- 区域管理 -->
+		<!-- 区域管理 -->
 		<action name="region_*" class="regionAction" method="{1}">
 			<!-- 批量导入 -->
 			<result name="importXlsSUCCESS" type="json">
@@ -154,6 +161,45 @@
 				<param name="contentType">application/vnd.ms-excel</param>
 				<param name="contentDisposition">attachment;filename=${downloadFileName}</param>
 			</result>
+			<!-- 关联定区列表 -->
+			<result name="findnoassciactionsSUCCESS" type="json">
+				<param name="root">subareas</param>
+				<param name="includeProperties">
+					\[\d+\]\.subareaId,
+					\[\d+\]\.addresskey,
+					\[\d+\]\.position
+				</param>
+			</result>
+		</action>
+		
+		
+		<!-- 定区管理 -->
+		<action name="decidedzone_*" class="decidedZoneAction" method="{1}">
+			<!-- 添加保存 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/decidedzone.jsp</result>
+			<!-- 定区分页查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.staff\.name,
+					rows\[\d+\]\.staff\.telephone,
+					rows\[\d+\]\.staff\.station
+				</param>
+			</result>
+			<!-- 查询未关联 客户信息-->
+			<result name="findNoAssociationCustomersSUCCESS" type="json">
+				<param name="root">customers</param>
+			</result>
+			<!-- 查询已经关联 客户信息-->
+			<result name="findHasAssociationCustomersSUCCESS" type="json">
+				<param name="root">customers</param>
+			</result>
+			<!-- 关联客户到定区 -->
+			<result name="assignedCustomerToDecidedZoneSUCCESS">/WEB-INF/pages/base/decidedzone.jsp</result>
+			
 		</action>
 		
 	</package>
@@ -166,5 +212,4 @@
 			<result type="redirect">/index.jsp</result>
 		</action>
 	</package>
-
 </struts>

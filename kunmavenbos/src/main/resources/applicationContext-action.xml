@@ -19,5 +19,5 @@
 	<bean id="staffAction" class="web.action.bc.StaffAction" scope="prototype"/>
 	<bean id="regionAction" class="web.action.bc.RegionAction" scope="prototype"/>
 	<bean id="subareaAction" class="web.action.bc.SubareaAction" scope="prototype"/>
-
+	<bean id="decidedZoneAction" class="web.action.bc.DecidedZoneAction" scope="prototype"/>
 </beans>

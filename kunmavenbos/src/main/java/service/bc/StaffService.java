@@ -1,5 +1,7 @@
 package service.bc;
 
+import java.util.List;
+
 import domain.bc.Staff;
 import page.PageQuery;
 
@@ -15,4 +17,7 @@ public interface StaffService extends PageQuery {
 
 	//删除取派员
 	public void delBatch(String[] ids);
+	
+	//查询取派员
+	public List<Staff> findAllNoDeleteStaffs();
 }
